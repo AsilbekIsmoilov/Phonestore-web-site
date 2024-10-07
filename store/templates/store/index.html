@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{title}}
+{% endblock title %}
+
+{% block main %}
+<main>
+<!-- Start Banner Hero -->
+{% include 'store/components/banner_hero.html' %}
+<!-- End Banner Hero -->
+
+
+<!-- Start Categories of The Month -->
+    {% for category in categories %}
+<section class="container py-5">
+        <div class="row text-center pt-3">
+            <div class="col-lg-6 m-auto">
+                <h1 class="h1">{{category.title}}</h1>
+            </div>
+        </div>
+        <div class="row">
+            {% for product in category.products %}
+            {% include 'store/components/product_card.html' %}
+            {% endfor %}
+        </div>
+    </section>
+    {% endfor %}
+<!-- End Categories of The Month -->
+
+
+<!-- Start Featured Product -->
+{% include 'store/components/brands.html' %}
+<!-- End Featured Product -->
+</main>
+{% endblock main %}

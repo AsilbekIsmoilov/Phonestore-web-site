@@ -1,0 +1,78 @@
+{% load store_tags %}
+<nav class="navbar navbar-expand-lg navbar-light shadow">
+    <div class="container d-flex justify-content-between align-items-center">
+
+        <a class="navbar-brand text-secondary logo h1 align-self-center" href="{% url 'index' %}">
+            Mobile Store
+        </a>
+
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between"
+             id="templatemo_main_nav">
+            <div class="flex-fill">
+                <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}">Home</a>
+                    </li>
+                    {% get_categories as categories %}
+                    {% for category in categories %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{category.get_absolute_url}}">{{category.title}}</a>
+                    </li>
+                    {% endfor %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                    </li>
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'user_logout' %}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login_register' %}">Sign Up</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="navbar align-self-center d-flex">
+                <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
+                        <div class="input-group-text">
+                            <i class="fa fa-fw fa-search"></i>
+                        </div>
+                    </div>
+                </div>
+                <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal"
+                   data-bs-target="#templatemo_search">
+                    <i class="fa fa-fw fa-search text-dark mr-2"></i>
+                </a>
+                {% if user.is_authenticated %}
+                <a class="nav-icon position-relative text-decoration-none" href="{% url 'likes' %}">
+                    <i class="fa fa-heart text-dark mr-1"></i>
+                </a>
+                {% else %}
+
+                <a class="nav-icon position-relative text-decoration-none" href="{% url 'login_register' %}">
+                    <i class="fa fa-heart text-dark mr-1"></i>
+                </a>
+                {% endif %}
+                {% if request.user.is_authenticated %}
+                <a class="nav-icon position-relative text-decoration-none" href="{% url 'cart' %}">
+                    <i class="fa fa-fw fa-shopping-bag text-dark mr-3"></i>
+                </a>
+                {% else %}
+                    <a class="nav-icon position-relative text-decoration-none" href="{% url 'login_register' %}">
+                        <i class="fa fa-fw fa-shopping-bag text-dark mr-3"></i>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+</nav>

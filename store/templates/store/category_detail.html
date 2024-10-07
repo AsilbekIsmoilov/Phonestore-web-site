@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load store_tags %}
+
+{% block title %}
+{{title}}
+{% endblock title %}
+
+
+{% block main %}
+<main>
+    <div class="container py-5">
+        <form class="d-flex my-2" role="search" method="get">
+            <input name='q' class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-success" type="submit">Search</button>
+        </form>
+    </div>
+
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-3">
+                <h1 class="h2 pb-4">Categories:</h1>
+                {% get_categories as categories %}
+                {% for category in categories %}
+
+                <ul>
+                    <li class="pb-3">
+                        <a class="text-success" href="{{category.get_absolute_url}}">{{category.title}}</a>
+                    </li>
+                </ul>
+                {% endfor %}
+                <div class="col-lg-3">
+                    <h1 class="h2 pb-4">Filters:</h1>
+
+                    {% include 'store/components/filters.html' %}
+                </div>
+            </div>
+
+
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-md-6">
+                    </div>
+                    <div class="row">
+                        {% for product in products %}
+                        {% include 'store/components/product_card.html' %}
+                        {% endfor %}
+<!--                        PAGINATION-->
+                        {% include 'store/components/pagination.html' %}
+<!--                        PAGINATION-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--     Start Brands -->
+{% include 'store/components/brands.html' %}
+    <!--    End Brands-->
+</main>
+{% endblock main %}

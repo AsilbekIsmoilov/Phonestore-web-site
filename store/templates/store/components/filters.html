@@ -1,0 +1,16 @@
+{% load store_tags %}
+{% get_filter as data %}
+{% for key in data %}
+<div class="dropdown container pb-3">
+  <button class="btn btn-white dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      {{key.title}}
+  </button>
+  <ul class="dropdown-menu dropdown-menu-white">
+    {% for item in key.filters %}
+    <li><a class="dropdown-item active" href="?sort={{item.0}}">{{item.1}}</a></li>
+    {% endfor %}
+
+  </ul>
+</div>
+{% endfor %}
+

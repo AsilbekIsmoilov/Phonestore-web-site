@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{title}}
+{% endblock title %}
+
+
+{% block main %}
+
+<div class="section">
+    <div class="container">
+		{% if messages %}
+		{% for message in messages %}
+		<p class="alert alert-{% if messages.tags == 'error' %}danger {% else %}{{message.tags}}{% endif %}">{{message}}</p>
+		{% endfor %}
+		{% endif %}
+        <div class="row justify-content-center">
+            <div class="col-12 text-center align-self-center py-5">
+                <div class="section pb-5 pt-5 pt-sm-2 text-center">
+                    <div class="card-3d-wrap mx-auto">
+                        <div class="card-3d-wrapper">
+                            <div class="card-front">
+                                <div class="center-wrap">
+                                    <form method="post" action="{% url 'user_login' %}" enctype="multipart/form-data"
+                                          class="section text-center">
+                                        {% csrf_token %}
+                                        <h4 class="mb-4 pb-3">Log In</h4>
+                                        <div class="form-group">
+                                            {{login_form.username}}
+                                        </div>
+                                        <div class="form-group mt-2">
+                                            {{login_form.password}}
+                                        </div>
+                                        <button type="submit" class="btn-success mt-4">submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <div class="center-wrap">
+                                    <form method="post" action="{% url 'user_register' %}" enctype="multipart/form-data"
+                                          class="section text-center">
+                                        {% csrf_token %}
+                                        <h4 class="mb-4 mt-4 pb-3">Sign Up</h4>
+                                        <div class="form-group">
+                                            {{register_form.username}}
+
+                                        </div>
+                                        <div class="form-group mt-2">
+                                            {{register_form.email}}
+
+                                        </div>
+                                        <div class="form-group mt-2">
+                                            {{register_form.password1}}
+
+                                        </div>
+                                        <div class="form-group mt-2">
+                                            {{register_form.password2}}
+
+                                        </div>
+                                        <button type="submit" class="btn-success mt-4">submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock main %}

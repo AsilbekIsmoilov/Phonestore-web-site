@@ -1,0 +1,25 @@
+{% load store_tags %}
+
+<div class="col-12 col-md-4 p-5 mt-3" style="position:relative;">
+    <a href="{{product.get_absolute_url}}">
+        {% if request.user.is_authenticated %}
+        {% get_like request.user as likes %}
+        {% if product in likes %}
+        <a href="{% url 'user_like' product.slug %}"><i class="fas fa-heart" style="color:red; position: absolute;top: 60px;right: 60px;"></i></a>
+        {% else %}
+        <a href="{% url 'user_like' product.slug %}"><i class="fas fa-heart" style="color:grey; position: absolute;top: 60px;right: 60px;"></i></a>
+        {% endif %}
+
+        {% else %}
+        <a href="{% url 'login_register' %}"><i class="fas fa-heart" style="color:grey; position: absolute;top: 60px;right: 60px;"></i></a>
+        {% endif %}
+
+
+        <img src="{{product.get_first_photo}}"
+                                                class="img-thumbnail img-fluid border"></a>
+    <h5 class="text-center mt-3 mb-3">{{product.title}}</h5>
+    <p class="text-center">{{product.price}} $</p>
+    <div class="row">
+    <p class="text-center"><a class="btn btn-success" href="{{product.get_absolute_url}}">Details</a></p>
+    </div>
+</div>

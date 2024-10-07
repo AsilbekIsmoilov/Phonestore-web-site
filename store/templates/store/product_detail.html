@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{title}}
+{% endblock title %}
+
+
+{% block main %}
+<main>
+    <section class="bg-light">
+        <div class="container pb-5">
+            <div class="row">
+                <div class="col-lg-5 mt-5">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="product_detail-slider">
+                                {% for photo in product.photos.all %}
+                                <div class="product_detail-slider_block">
+                                    <img src="{{photo.image.url}}" alt="" width="100%" height="600%">
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <!--End Carousel Wrapper-->
+                    </div>
+                </div>
+                <!-- col end -->
+                <div class="col-lg-7 mt-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h1 class="h2">{{product.title}}</h1>
+                            <p class="h3 py-2">$ {{product.price}}</p>
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <h6>Brand:</h6>
+                                </li>
+                                <li class="list-inline-item">
+                                    <p class="text-muted"><strong>{{product.brand_info}}</strong></p>
+                                </li>
+                            </ul>
+
+                            <h6>Description:</h6>
+                            <p>{{product.description}}</p>
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <h6>Color :</h6>
+                                </li>
+                                <li class="list-inline-item">
+                                    <p class="text-muted"><strong>{{product.color}}</strong></p>
+                                </li>
+                            </ul>
+
+                            <h6>Specification:</h6>
+                            <ul class="list-unstyled pb-3">
+                                <li>###</li>
+
+                            </ul>
+
+                            <form action="" method="GET">
+                                <input type="hidden" name="product-title" value="Activewear">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <ul class="list-inline pb-3">
+                                            <li class="list-inline-item text-right">
+                                                Quantity:
+                                                {{product.quantity}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row pb-3">
+                                    {% if product.quantity > 0 %}
+                                    <div class="col d-grid">
+                                        <a href="{% url 'to_cart' product.pk 'add' %}" class="btn btn-success btn-lg">Add To Cart/Buy</a>
+<!--                                        <button type="submit" class="btn btn-success btn-lg" name="submit" value="buy"><a href="{% url 'to_cart' product.pk 'add' %}"></a>-->
+<!--                                            Buy-->
+<!--                                        </button>-->
+                                    </div>
+                                    {% else %}
+                                    <div class="col d-grid">
+                                        <button type="submit" class="btn btn-success btn-lg" name="submit" value="buy">
+                                            None
+                                        </button>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-5">
+        <div class="container">
+            <div class="row text-left p-2 pb-3">
+                <h4>You may also like :</h4>
+            </div>
+
+            <!--Start Carousel Wrapper-->
+            <div class="row" id="carousel-related-product">
+                {% for product in products %}
+                {% include 'store/components/product_card.html' %}
+                {% endfor %}
+            </div>
+
+
+        </div>
+    </section>
+
+</main>
+{% endblock main %}
